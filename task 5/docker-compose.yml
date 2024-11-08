@@ -1,0 +1,26 @@
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/code
+    env_file: 
+      - .env
+    environment:
+      FLASK_ENV: development
+    depends_on:
+      - dbhost
+
+  dbhost:
+    image: "postgres:alpine"
+    environment:
+      POSTGRES_DB: counterdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+volumes:
+  pgdata:
