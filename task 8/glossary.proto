@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package glossary;
+
+service GlossaryService {
+    rpc GetTerms (GetTermsRequest) returns (GetTermsResponse);
+    rpc GetTerm (GetTermRequest) returns (TermResponse);
+    rpc CreateTerm (CreateTermRequest) returns (TermResponse);
+    rpc UpdateTerm (UpdateTermRequest) returns (TermResponse);
+    rpc DeleteTerm (DeleteTermRequest) returns (DeleteTermResponse);
+}
+
+message GetTermsRequest {}
+
+message GetTermsResponse {
+    repeated TermResponse terms = 1;
+}
+
+message GetTermRequest {
+    int32 term_id = 1;
+}
+
+message TermResponse {
+    int32 id = 1;
+    string term = 2;
+    string definition = 3;
+    int32 priority = 4;
+    int32 relation = 5;
+    string author = 6;
+}
+
+message CreateTermRequest {
+    string term = 1;
+    string definition = 2;
+    int32 priority = 3;
+    int32 relation = 4;
+    string author = 5;
+}
+
+message UpdateTermRequest {
+    int32 term_id = 1;
+    string term = 2;
+    string definition = 3;
+    int32 priority = 4;
+    int32 relation = 5;
+    string author = 6;
+}
+
+message DeleteTermRequest {
+    int32 term_id = 1;
+}
+
+message DeleteTermResponse {
+    string message = 1;
+}
